@@ -5,6 +5,9 @@ import Cards from "../components/home/Cards";
 import TransactionForm from "../components/transaction/TransactionForm";
 
 import { MdLogout } from "react-icons/md";
+import toast from "react-hot-toast";
+import { useMutation } from "@apollo/client/react";
+import { LOGOUT } from "../graphql/mutations/user.mutation";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -25,11 +28,18 @@ const HomePage = () => {
 		],
 	};
 
-	const handleLogout = () => {
-		console.log("Logging out...");
-	};
+	const [logout,{loading}] = useMutation(LOGOUT,{
+		refetchQueries: ["GetAuthenticatedUser"]
+	})
 
-	const loading = false;
+	const handleLogout = async() => {
+		try {
+			await logout()
+		} catch (error:any) {
+			console.error('Error when logging out:',error)
+			toast.error(error.message)
+		}
+	}
 
 	return (
 		<>
@@ -43,7 +53,7 @@ const HomePage = () => {
 						className='w-11 h-11 rounded-full border cursor-pointer'
 						alt='Avatar'
 					/>
-					{!loading && <MdLogout className='mx-2 w-5 h-5 cursor-pointer' onClick={handleLogout} />}
+					{!loading && <MdLogout className='mx-2 size-7 cursor-pointer text-white' onClick={handleLogout} />}
 					{/* loading spinner */}
 					{loading && <div className='w-6 h-6 border-t-2 border-b-2 mx-2 rounded-full animate-spin'></div>}
 				</div>

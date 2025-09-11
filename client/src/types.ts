@@ -28,3 +28,13 @@ export type CardType = "saving" | "expense" | "investment";
 export interface CardProps {
   cardType: CardType;
 }
+
+// Define the shape of the data - GET_AUTHENTICATED_USER query returns
+export type AuthenticatedUserData = {
+  authUser: {
+    id: string;
+    username: string;
+    email: string;
+    // add any other fields your query returns
+  } | null;
+};
