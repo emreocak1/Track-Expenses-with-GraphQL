@@ -25,9 +25,6 @@ export interface RadioButtonProps {
 
 export type CardType = "saving" | "expense" | "investment";
 
-export interface CardProps {
-  cardType: CardType;
-}
 
 // Define the shape of the data - GET_AUTHENTICATED_USER query returns
 export type AuthenticatedUserData = {
@@ -37,4 +34,27 @@ export type AuthenticatedUserData = {
     email: string;
     // add any other fields your query returns
   } | null;
+};
+
+
+export interface Transaction {
+  _id: string;
+  description: string;
+  paymentType: string;
+  category: string;
+  amount: number;
+  location?: string|null;
+  date: string|number;
+}
+
+export interface GetTransactionsData {
+  transactions: Transaction[];
+}
+
+export interface CardProps {
+  transaction: Transaction;
+}
+
+export type GetTransactionResponse = {
+  transaction: Transaction;
 };

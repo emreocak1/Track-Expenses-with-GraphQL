@@ -12,10 +12,7 @@ import type { AuthenticatedUserData } from "./types"
 
 
 const App = () => {
-  const {loading,data,error} = useQuery<AuthenticatedUserData>(GET_AUTHENTICATED_USER)
-  console.log("Loading:",loading);
-  console.log("Authenticated User:",data);
-  console.log("Error:",error);
+  const {loading,data} = useQuery<AuthenticatedUserData>(GET_AUTHENTICATED_USER)
   
   if(loading) return null
   
@@ -26,7 +23,7 @@ const App = () => {
           <Route path="/" element={data?.authUser ? <HomePage/> : <Navigate to={'/login'}/>} />
           <Route path="/login" element={!data?.authUser ? <LoginPage/> : <Navigate to={'/'}/>} />
           <Route path="/signup" element={!data?.authUser ? <SignupPage/> : <Navigate to={'/'}/>} />
-          <Route path="/transaction/:id" element={!data?.authUser ? <TransactionPage/> : <Navigate to={'/login'}/>} />
+          <Route path="/transaction/:id" element={data?.authUser ? <TransactionPage/> : <Navigate to={'/login'}/>} />
           <Route path="*" element={<NotFoundPage/>} />
         </Routes>
         <Toaster/>
