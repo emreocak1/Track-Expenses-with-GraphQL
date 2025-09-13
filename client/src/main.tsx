@@ -6,17 +6,12 @@ import GridBackground from './components/GridBackground.tsx'
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
 
-// const client = new ApolloClient({
-//   //! Update the uri on production
-//   link: new HttpLink({ uri: "http://localhost:4000/graphql" }),
-//   cache: new InMemoryCache(),
-// });
-
 const client = new ApolloClient({
   link: new HttpLink({
+    //! Update the uri on production
     uri: "http://localhost:4000/graphql",
     fetchOptions: {
-      credentials: "include", // ✅ send cookies
+      credentials: "include", // send cookies
     },
   }),
   cache: new InMemoryCache(),

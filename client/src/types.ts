@@ -70,6 +70,7 @@ export interface TransactionStatsData {
 
 export interface AuthUser {
   profilePicture: string;
+  _id: string
   // add other fields if your query returns them
 }
 

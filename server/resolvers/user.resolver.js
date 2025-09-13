@@ -1,6 +1,6 @@
-import {users} from '../dummyData/data.js'
 import User from '../models/user.model.js'
 import bcrypt from 'bcryptjs'
+import Transaction from '../models/transaction.model.js'
 
 
 const userResolver = {
@@ -104,6 +104,19 @@ const userResolver = {
 
     }
   },
+
+  //* Adding relationship GraphQL
+  User: {
+    transactions: async(parent) => {
+      try {
+        const transactions = await Transaction.find({userId:parent._id})
+        return transactions
+      } catch (error) {
+        console.error('Error in user.transaction resolver',error)
+        throw new Error(error.message || 'Internal server error')
+      }
+    }
+  }
 }
 
 export default userResolver

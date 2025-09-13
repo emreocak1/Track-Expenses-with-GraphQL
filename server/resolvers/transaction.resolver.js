@@ -1,4 +1,5 @@
 import Transaction from '../models/transaction.model.js'
+import User from '../models/user.model.js'
 
 const transactionResolver = {
   Query: {
@@ -88,6 +89,19 @@ const transactionResolver = {
         throw new Error('Error deleting transaction')
       }
       
+    }
+  },
+
+  Transaction: {
+    user: async(parent) => {
+      const userId = parent.userId
+      try {
+        const user = await User.findById(userId)
+        return user
+      } catch (error) {
+        console.error('Error getting user',error)
+        throw new Error('Error getting user')
+      }
     }
   }
 }
