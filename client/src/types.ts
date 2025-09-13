@@ -58,3 +58,21 @@ export interface CardProps {
 export type GetTransactionResponse = {
   transaction: Transaction;
 };
+
+export interface CategoryStat {
+  category: "saving" | "expense" | "investment" | string; // add more if needed
+  totalAmount: number;
+}
+
+export interface TransactionStatsData {
+  categoryStatistics: CategoryStat[];
+}
+
+export interface AuthUser {
+  profilePicture: string;
+  // add other fields if your query returns them
+}
+
+export interface AuthUserData {
+  authUser: AuthUser;
+}
